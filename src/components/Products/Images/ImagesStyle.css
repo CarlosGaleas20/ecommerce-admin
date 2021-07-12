@@ -1,0 +1,12 @@
+
+.ui.page.modals {
+    z-index: 1400 !important;
+}
+
+.ui.page.modals .ui.scrolling.modal .description{
+    width: 100% !important;
+}
+
+.ui.page.modals .ui.modal .description{
+    width: 100% !important;
+}
