@@ -1,2 +1,2 @@
 /* eslint-disable prettier/prettier */
-export const BASE_URL = "http://localhost:1337";    
+export const BASE_URL = "https://ecommerce-tesis20.herokuapp.com";    
