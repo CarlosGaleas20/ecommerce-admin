@@ -2,6 +2,7 @@
 // eslint-disable-next-line prettier/prettier
 /* eslint-disable react/prop-types */
 /* eslint-disable prettier/prettier */
+import { sendEmailSendByDeposit } from 'api/email';
 import { updateEstadoPedidoByDepositDispatch } from 'api/order';
 import useAuth from 'hooks/useAuth';
 import React, { useState } from 'react';
@@ -22,7 +23,9 @@ function OrderDispatch({ open, setOpen, order, setReloadOrder, setActiveId }) {
                 if (!response) {
                     toast.error('Error al cambiar de estado');
                 } else {
-                    toast.success('Pedido despachado');
+                    const prueba = await sendEmailSendByDeposit(order.idPedido, logout);
+                    console.log(prueba);
+                    toast.success('Pedido Entregado');
                     setOpen(false);
                     setReloadOrder(true);
                     setActiveId(null);

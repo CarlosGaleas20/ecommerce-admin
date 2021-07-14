@@ -6,12 +6,14 @@ import { updateEstadoPedido } from 'api/order';
 import useAuth from 'hooks/useAuth';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { Button, Header, Icon, Modal } from 'semantic-ui-react';
+import { Button, Header, Icon, Modal, Dropdown } from 'semantic-ui-react';
+import { sendEmailDispatch } from 'api/email';
 
 function OrderSend({ open, setOpen, order, setReloadOrder, setActiveId }) {
 
     const { logout } = useAuth();
     const [loading, setLoading] = useState(false);
+    const [data, setData] = useState({time: '15'})
 
     const updatePedido = async () => {
         setLoading(true);
@@ -22,7 +24,9 @@ function OrderSend({ open, setOpen, order, setReloadOrder, setActiveId }) {
                 if (!response) {
                     toast.error('Error al cambiar de estado');
                 } else {
-                    toast.success('Pedido despachado');
+                    const prueba = await sendEmailDispatch(order.idPedido, data, logout);
+                    console.log(prueba);
+                    toast.success('Compra Despachada');
                     setOpen(false);
                     setReloadOrder(true);
                     setActiveId(null);
@@ -33,6 +37,36 @@ function OrderSend({ open, setOpen, order, setReloadOrder, setActiveId }) {
         }
         setLoading(false);
     }
+
+    const time = [
+        {
+            key: '1',
+            text: '15 minutos',
+            value: '15',
+        },
+        {
+            key: '2',
+            text: '30 minutos',
+            value: '30',
+        },
+        {
+            key: '3',
+            text: '45 minutos',
+            value: '45',
+        },
+        {
+            key: '4',
+            text: '1 hora',
+            value: '60',
+        },
+    ]
+
+    const handleChange = (e, { value }) => {
+        setData({
+            time: value,
+        });
+    }
+
 
     return (
         <Modal
@@ -57,6 +91,17 @@ function OrderSend({ open, setOpen, order, setReloadOrder, setActiveId }) {
                 <p>
                     ¡Una vez despachado no podra cambiar su estado de entrega!
                 </p>
+                <p>
+                    Seleccione el tiempo de entrega esperado:
+                </p>
+                <Dropdown
+                    placeholder='Selecciona el tiempo'
+                    fluid
+                    selection
+                    options={time}
+                    onChange={handleChange}
+                    value={data.time}
+                />
             </Modal.Content>
             <Modal.Actions>
                 <Button basic color='red' inverted onClick={() => setOpen(false)}>

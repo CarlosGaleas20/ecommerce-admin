@@ -2,6 +2,7 @@
 // eslint-disable-next-line prettier/prettier
 /* eslint-disable react/prop-types */
 /* eslint-disable prettier/prettier */
+import { sendEmailSend } from 'api/email';
 import { updateEstadoPedidoDispatch } from 'api/order';
 import useAuth from 'hooks/useAuth';
 import React, { useState } from 'react';
@@ -12,6 +13,7 @@ function OrderDispatch({ open, setOpen, order, setReloadOrder, setActiveId }) {
 
     const { logout } = useAuth();
     const [loading, setLoading] = useState(false);
+    
 
     const updatePedido = async () => {
         setLoading(true);
@@ -22,7 +24,9 @@ function OrderDispatch({ open, setOpen, order, setReloadOrder, setActiveId }) {
                 if (!response) {
                     toast.error('Error al cambiar de estado');
                 } else {
-                    toast.success('Pedido entregado');
+                    const prueba = await sendEmailSend(order.idPedido, logout);
+                    console.log(prueba);
+                    toast.success('Compra Entregada');
                     setOpen(false);
                     setReloadOrder(true);
                     setActiveId(null);
@@ -66,7 +70,7 @@ function OrderDispatch({ open, setOpen, order, setReloadOrder, setActiveId }) {
                     <Icon name='remove' /> No. Cancelar.
                 </Button>
                 <Button color='green' inverted onClick={updatePedido} loading={loading}>
-                    <Icon name='checkmark' /> Sí. Despachar.
+                    <Icon name='checkmark' /> Sí. Entregar.
                 </Button>
             </Modal.Actions>
         </Modal>
