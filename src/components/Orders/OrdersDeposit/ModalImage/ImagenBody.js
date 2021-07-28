@@ -11,7 +11,7 @@ const DatsPedido = ({order}) => {
             <Header>Vacher del Pedido </Header>
             <Grid>
                 <Grid.Row>
-                    <Grid.Column mobile={12} tablet={12} computer={16}>
+                    <Grid.Column mobile={16} tablet={16} computer={16}>
                         <div className="container-user"
                         style={{
                             justifyContent: 'center',
@@ -22,9 +22,7 @@ const DatsPedido = ({order}) => {
                             <h3>El vaucher de pedido colocado por el usuario es: </h3>
                             <div style={{margin: '0 auto'}}>
                             <Image
-                                style={{
-                                    height: 400,
-                                }}
+                                
                                 src={order.vaucher.url}
                                 alt='vaucher'
                             />

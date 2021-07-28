@@ -6,7 +6,7 @@ import { Header, Image, Grid } from 'semantic-ui-react';
 import { map } from 'lodash';
 import { makeStyles } from "@material-ui/core/styles";
 
-const DatsPedido = ({orders, order}) => {
+const DatsPedido = ({ orders, order }) => {
 
     const classes = useStyles();
 
@@ -29,17 +29,35 @@ const DatsPedido = ({orders, order}) => {
                     </Grid.Column>
                     <Grid.Column mobile={16} tablet={16} computer={8}>
                         <div className="container-direccion">
-                            <h3>{
-                                order.estadoEntrega === 'Entregado'
-                                    ? 'El pedido fue enviado a:'
-                                    : 'El pedido se enviara a:'
+                            {
+                                direccion.title === 'Retiro en el local'
+                                    ? (
+                                        <>
+                                            <h3>
+                                            Retiro en el local
+                                            </h3>
+                                            <p>Producto a retirar en el local</p>
+                                            <p>Estado: <span style={{ color: '#007bff' }}>{
+                                                order.estadoEntrega === 'Entregado'
+                                                    ? 'El cliente ha retirado su pedido'
+                                                    : 'El cliente no ha retirado su pedido'
+                                            }</span></p>
+                                        </>
+                                    )
+                                    : (
+                                        <>
+                                            <h3>{
+                                                order.estadoEntrega === 'Entregado'
+                                                    ? 'El pedido fue enviado a:'
+                                                    : 'El pedido se enviara a:'
+                                            }
+                                            </h3>
+                                            <p>Cantón: <span style={{ color: '#007bff' }}>{direccion.canton}</span></p>
+                                            <p>Parroquia: <span style={{ color: '#007bff' }}>{direccion.cuidad}</span></p>
+                                            <p>Calle: <span style={{ color: '#007bff' }}>{direccion.calle}</span></p>
+                                        </>
+                                    )
                             }
-                            </h3>
-                            <p>Titulo de la direccin: <span style={{ color: '#007bff' }}>{direccion.title}</span></p>
-                            <p>Provincia: <span style={{ color: '#007bff' }}>{direccion.provincia}</span></p>
-                            <p>Cantón: <span style={{ color: '#007bff' }}>{direccion.canton}</span></p>
-                            <p>Cuidad: <span style={{ color: '#007bff' }}>{direccion.cuidad}</span></p>
-                            <p>Calle: <span style={{ color: '#007bff' }}>{direccion.calle}</span></p>
                         </div>
                     </Grid.Column>
                 </Grid.Row>

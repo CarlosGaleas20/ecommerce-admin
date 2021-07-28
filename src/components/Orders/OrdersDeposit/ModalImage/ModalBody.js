@@ -70,7 +70,7 @@ function ModalOrder({ order, open, setOpen, setActiveId, setReloadOrder, openSen
                                 ? (
                                     <>
                                         <Modal.Header>Detalles del pedido: {order.idPedido} </Modal.Header>
-                                        <Modal.Content image>
+                                        <Modal.Content image scrolling>
                                             <Modal.Description>
                                                 <DatsBody
                                                     orders={orders}
